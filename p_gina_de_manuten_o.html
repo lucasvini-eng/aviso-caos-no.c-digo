@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ops! Em Manutenção</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 0.5s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafafa;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafafa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e4e4e7;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between p-4 md:p-8 selection:bg-amber-200 selection:text-amber-900">
+
+    <div class="fixed inset-0 pointer-events-none opacity-40 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+    <header class="relative z-10 w-full max-w-4xl mx-auto flex items-center justify-between py-2">
+        <div class="flex items-center gap-2 font-bold text-slate-800 text-lg tracking-tight">
+            <span class="inline-block w-3 h-3 rounded-full bg-amber-500 animate-ping"></span>
+            <span>PROJETO X</span>
+        </div>
+        <div id="status-badge" class="text-xs font-semibold px-3 py-1 bg-amber-100 text-amber-800 rounded-full border border-amber-200 flex items-center gap-1.5 cursor-pointer transition-all hover:scale-105">
+            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+            <span>Devs Operando</span>
+        </div>
+    </header>
+
+    <main class="relative z-10 my-auto max-w-2xl mx-auto text-center py-8 px-2">
+        
+        <div class="relative w-44 h-44 md:w-52 md:h-52 mx-auto mb-8">
+            <div class="absolute inset-0 bg-amber-100 rounded-full flex items-center justify-center border-4 border-amber-200/60 shadow-inner">
+                <i class="fa-solid fa-gear text-6xl md:text-7xl text-amber-300 animate-spin-slow"></i>
+            </div>
+            
+            <div id="hero-avatar" class="absolute inset-0 flex items-center justify-center animate-float cursor-pointer group" title="Clique para cutucar o dev!">
+                <div class="relative bg-white p-5 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 transform transition group-hover:scale-110 group-active:scale-95">
+                    <i class="fa-solid fa-mug-hot text-5xl md:text-6xl text-slate-700 transition group-hover:text-amber-600"></i>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md animate-pulse">
+                        404: Café Vazio
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+            Calma lá! Estamos dando uma <span class="text-amber-600 underline decoration-amber-300 underline-offset-4">Gretada</span> no código.
+        </h1>
+        
+        <p class="text-slate-600 text-base md:text-lg mb-8 max-w-lg mx-auto leading-relaxed">
+            Um estagiário tropeçou no cabo de energia enquanto tentava centralizar uma <code class="bg-slate-200 text-slate-800 px-2 py-0.5 rounded font-mono text-sm">&lt;div&gt;</code>. Estamos arrumando a bagunça!
+        </p>
+
+        <div class="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/80 shadow-sm max-w-md mx-auto mb-8 transition-all hover:shadow-md">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-lightbulb text-amber-500"></i> O que estamos fazendo agora:
+            </div>
+            <p id="excuse-text" class="text-sm md:text-base font-medium text-slate-700 italic min-h-[3rem] flex items-center justify-center">
+                "Convencendo os servidores de que eles não precisam entrar em greve."
+            </p>
+            <button id="next-excuse-btn" class="mt-2 text-xs font-semibold text-amber-600 hover:text-amber-700 flex items-center justify-center gap-1 mx-auto transition-colors">
+                <i class="fa-solid fa-arrows-rotate"></i> Gerar outra desculpa
+            </button>
+        </div>
+
+        <div class="mb-8">
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Previsão de Retorno (Teórica)</p>
+            <div class="flex justify-center items-center gap-3 font-mono">
+                <div class="bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-sm min-w-[70px]">
+                    <span id="hours" class="block text-2xl md:text-3xl font-extrabold text-slate-800">00</span>
+                    <span class="text-[10px] font-sans font-medium text-slate-400 uppercase">Horas</span>
+                </div>
+                <span class="text-2xl font-bold text-slate-300">:</span>
+                <div class="bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-sm min-w-[70px]">
+                    <span id="minutes" class="block text-2xl md:text-3xl font-extrabold text-slate-800">42</span>
+                    <span class="text-[10px] font-sans font-medium text-slate-400 uppercase">Minutos</span>
+                </div>
+                <span class="text-2xl font-bold text-slate-300">:</span>
+                <div class="bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-sm min-w-[70px]">
+                    <span id="seconds" class="block text-2xl md:text-3xl font-extrabold text-amber-600">59</span>
+                    <span class="text-[10px] font-sans font-medium text-slate-400 uppercase">Segundos</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-md mx-auto bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div class="text-left">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Combustível dos Devs</p>
+                    <p class="text-slate-800 font-bold text-base flex items-center gap-2">
+                        <span>Xícaras de Café Tomadas:</span>
+                    </p>
+                </div>
+                <div class="flex items-center gap-1.5 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200">
+                    <i class="fa-solid fa-mug-hot text-amber-600 text-lg"></i>
+                    <span id="coffee-count" class="text-2xl font-extrabold text-amber-800 font-mono">14</span>
+                </div>
+            </div>
+            
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                <span id="coffee-status-text" class="text-xs text-slate-500 italic text-left">
+                    "Nível de cafeína suficiente para compilar mais 10 linhas."
+                </span>
+                <button 
+                    id="add-coffee-btn"
+                    onclick="addCoffee()" 
+                    class="px-3 py-2 bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-semibold text-xs rounded-xl transition-all shadow-sm flex items-center gap-1.5 shrink-0"
+                >
+                    <i class="fa-solid fa-plus text-[10px]"></i>
+                    <span>Pagar Café</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 w-full max-w-4xl mx-auto text-center py-4 border-t border-slate-200/60 mt-8">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+            <p>© <span id="year"></span> Projeto X. Nenhum estagiário foi ferido nesta manutenção.</p>
+            <div class="flex gap-4 text-slate-400">
+                <a href="#" onclick="showToast('Já tentou desligar e ligar de novo?')" class="hover:text-slate-600 transition-colors">Suporte</a>
+                <a href="#" onclick="showToast('Prometemos que tá quase!')" class="hover:text-slate-600 transition-colors">Status</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-sm font-medium transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-3">
+        <i class="fa-solid fa-circle-info text-amber-400"></i>
+        <span id="toast-message">Mensagem aqui</span>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        let coffeeCount = 14;
+        const coffeeCountEl = document.getElementById('coffee-count');
+        const coffeeStatusEl = document.getElementById('coffee-status-text');
+
+        const coffeeStatusMessages = [
+            "Nível de cafeína suficiente para compilar mais 10 linhas.",
+            "Devs operando em velocidade máxima!",
+            "Cuidado! Riscos de ultrapassar a velocidade da luz.",
+            "O estagiário finalmente acordou!",
+            "Overdose de produtividade detectada!",
+            "Os servidores estão esquentando junto com a xícara."
+        ];
+
+        function addCoffee() {
+            coffeeCount++;
+            coffeeCountEl.textContent = coffeeCount;
+            
+            coffeeCountEl.classList.add('scale-125', 'text-amber-500');
+            setTimeout(() => {
+                coffeeCountEl.classList.remove('scale-125', 'text-amber-500');
+            }, 200);
+
+            const randomMsg = coffeeStatusMessages[Math.floor(Math.random() * coffeeStatusMessages.length)];
+            coffeeStatusEl.textContent = `"${randomMsg}"`;
+
+            showToast("☕ +1 café enviado para a equipe de devs!");
+        }
+
+        setInterval(() => {
+            if (Math.random() > 0.5) {
+                coffeeCount++;
+                coffeeCountEl.textContent = coffeeCount;
+            }
+        }, 12000);
+
+        const excuses = [
+            "Convencendo os servidores de que eles não precisam entrar em greve.",
+            "Procurando onde foi parar a vírgula que quebrou o sistema todo.",
+            "Alimentando os hamsters que geram energia para os nossos servidores.",
+            "Recompondo o café da equipe de engenharia.",
+            "Consultando o oráculo para entender por que funciona em Localhost mas não na Nuvem.",
+            "Negociando com o gato que deitou em cima do teclado principal.",
+            "Tentando centralizar uma div desde às 08:00h da manhã.",
+            "Apagando arquivos e torcendo para que nenhum fosse importante."
+        ];
+
+        let currentExcuseIndex = 0;
+
+        const excuseText = document.getElementById('excuse-text');
+        const nextExcuseBtn = document.getElementById('next-excuse-btn');
+
+        nextExcuseBtn.addEventListener('click', () => {
+            excuseText.style.opacity = '0';
+            excuseText.style.transform = 'translateY(4px)';
+            
+            setTimeout(() => {
+                currentExcuseIndex = (currentExcuseIndex + 1) % excuses.length;
+                excuseText.textContent = `"${excuseText.dataset.custom || excuses[currentExcuseIndex]}"`;
+                delete excuseText.dataset.custom;
+                
+                excuseText.style.opacity = '1';
+                excuseText.style.transform = 'translateY(0px)';
+            }, 200);
+        });
+
+        excuseText.style.transition = 'all 0.2s ease-in-out';
+
+        let seconds = 59;
+        let minutes = 42;
+        let hours = 0;
+
+        const secondsEl = document.getElementById('seconds');
+        const minutesEl = document.getElementById('minutes');
+        const hoursEl = document.getElementById('hours');
+
+        setInterval(() => {
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours = 1; 
+                }
+            }
+
+            secondsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+            minutesEl.textContent = minutes < 10 ? '0' + minutes : minutes;
+            hoursEl.textContent = hours < 10 ? '0' + hours : hours;
+        }, 1000);
+
+        const heroAvatar = document.getElementById('hero-avatar');
+        let clickCount = 0;
+
+        heroAvatar.addEventListener('click', () => {
+            clickCount++;
+            
+            heroAvatar.classList.add('animate-wiggle');
+            setTimeout(() => heroAvatar.classList.remove('animate-wiggle'), 500);
+
+            if (clickCount === 1) {
+                showToast("Ei! Não mexa no café do desenvolvedor!");
+            } else if (clickCount === 3) {
+                showToast("Se clicar mais uma vez, adicionamos +1 hora de manutenção! ☕");
+            } else if (clickCount >= 5) {
+                showToast("Pronto... Você derramou café no servidor!");
+                excuseText.dataset.custom = "Limpando o café que você derramou nos servidores!";
+                nextExcuseBtn.click();
+                clickCount = 0;
+            }
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        document.getElementById('status-badge').addEventListener('click', () => {
+            showToast("Status atual: Devs em pânico controlado.");
+        });
+    </script>
+</body>
+</html>
